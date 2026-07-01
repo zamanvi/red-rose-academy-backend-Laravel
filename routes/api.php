@@ -24,7 +24,3 @@ Route::prefix('grammer')->middleware(['grammer', 'throttle:60,1'])->group(functi
     Route::get('/settings', [SettingController::class, 'apiIndex']);
 });
 
-Route::prefix('app')->middleware(['app'])->group(function () {
-    Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-    });
-});

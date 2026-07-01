@@ -104,7 +104,6 @@ class ApiContestController extends Controller
                 $question = ContestQuestion::where('contest_id', $contest->id)
                     ->inRandomOrder()
                     ->get(['id', 'name', 'option1', 'option2', 'option3', 'option4']);
-                // Result::create(['contest_id' => $contest->id, 'user_id' => Auth::user()->id]);
                 return $this->apiResponse(
                     [
                         'contest' => $contest,
@@ -158,7 +157,6 @@ class ApiContestController extends Controller
                 $totalquestion = $request->input('totalquestion');
                 $not_give_ans = $totalquestion - $give_ans;
                 $totalpoint = $user->points + $mark;
-                // return 'R ' . $right . ', W ' . $wrong . ', N ' . $negative . ', M ' . $mark . ', TQ ' . $totalquestion . ', TP ' . $totalpoint . ', GA ' . $give_ans . ', NGA ' . $not_give_ans;
                 $this->pointupdate($user->id, $totalpoint);
                 $this->history($user->id, 'You get "' . $mark . '" points from "' . $contest->name . '" Contest Exam.! Where total question "' . $totalquestion . '", right answered "' . $right . '", wrong answered "' . $wrong . '", nagetive mark "' . $negative . '", total mark "' . $mark . '"', 'exam');
                 $this->notification($user->id, '"' . $user->name . '" get ' . $mark . ' from Contest "' . $contest->name . '".!', 'exam', '1');

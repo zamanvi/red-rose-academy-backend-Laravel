@@ -66,7 +66,6 @@ class BookController extends Controller
     {
         $bookChapterf = BookChapter::where('slug', $slug)->first();
         $bookChapters = BookChapter::latest()->where('book_id', $bookChapterf->book_id)->paginate(10);
-        // dd($bookChapterf);
         $book = Book::find($bookChapterf->book_id);
         return view('admin.book.cedit', compact('bookChapters', 'bookChapterf', 'book'));
     }

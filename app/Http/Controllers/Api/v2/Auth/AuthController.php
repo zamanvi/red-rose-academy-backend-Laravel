@@ -72,7 +72,6 @@ class AuthController extends Controller
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             $user = User::where('email', $request->email)->first();
             if ($user && Hash::check($request->password, $user->password)) {
-                // if (!Auth::attempt($request->only(['email', 'password']))) {
                 Notification::create([
                     'user_id' => $user->id,
                     'name' => $user->name . ' Login by email.!',
@@ -90,9 +89,6 @@ class AuthController extends Controller
                     'You have successfully logged in.!',
                     AppResponse::HTTP_OK,
                 );
-                // } else {
-                //     return $this->error('', '1Credentials does not match', 422);
-                // }
             } else {
                 return $this->apiResponse('', false, 'Credentials does not match', AppResponse::HTTP_UNAUTHORIZED);
             }

@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AllClass;
-use App\Models\City;
-use App\Models\Upozila;
 use App\Models\Chat;
-use App\Models\Country;
-use App\Models\Division;
 use App\Models\Message;
 use App\Traits\HttpWebResponse;
 use App\Models\Friend;
@@ -16,7 +11,6 @@ use App\Models\Notification;
 use App\Models\ReceiveRequest;
 use App\Models\SendRequest;
 use App\Models\Upazila;
-use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +23,6 @@ class ProfileController extends Controller
         $friendsList = Friend::where('user_id', Auth::user()->id)
             ->where('friend_id', '!=', 1)
             ->get();
-        // dd($friendsList);
         return view('frontend.profile.mfriend', [
             'friendsList' => $friendsList,
         ]);
@@ -48,7 +41,6 @@ class ProfileController extends Controller
     public function allrequest()
     {
         $receiveRequestList = ReceiveRequest::where('user_id', Auth::user()->id)->get();
-        // dd($receiveRequestList);
         return view('frontend.profile.request', [
             'receiveRequestList' => $receiveRequestList,
         ]);
@@ -56,7 +48,6 @@ class ProfileController extends Controller
     public function allsend()
     {
         $sendRequestList = SendRequest::where('user_id', Auth::user()->id)->get();
-        // dd($receiveRequestList);
         return view('frontend.profile.send', [
             'sendRequestList' => $sendRequestList,
         ]);
@@ -107,7 +98,6 @@ class ProfileController extends Controller
             ->get()
             ->first();
         $user = User::find($id);
-        // dd($friendrequest);
         $this->notification(Auth::user()->id, '"' . Auth::user()->name . '" cancel friend request, "' . $user->name . '" successful.!',  'cancelrequest', '1');
         $sendrequest->delete();
         $receiverequest->delete();
@@ -133,7 +123,6 @@ class ProfileController extends Controller
 
     public function makemessage(Request $request, $id)
     {
-        // dd($id);
         $my_id = Auth::user()->id;
         $chat = Chat::where('receiver_id', $id)
             ->where('sender_id', $my_id)
@@ -176,7 +165,6 @@ class ProfileController extends Controller
             ->orwhere('receiver_id', Auth::user()->id)
             ->get();
 
-        // dd($chatList);
         return view('frontend.profile.message', [
             'chatList' => $chatList,
             'messagelist' => '',

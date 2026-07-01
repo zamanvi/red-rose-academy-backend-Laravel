@@ -123,7 +123,6 @@ class ApiModeltestController extends Controller
             $totalpoint = $user->profile->points + $mark;
             $not_give_ans = $totalquestion - $give_ans;
 
-            // return $id . $user->id . 'Repeat'. $totalquestion. $right. $wrong. $mark. $negative. $give_ans. $not_give_ans;
             $modeltestresult = ModelTestResult::where('modeltest_id', $id)
                 ->where('user_id', $user->id)
                 ->first();

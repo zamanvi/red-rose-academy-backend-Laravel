@@ -73,7 +73,6 @@ class HomeController extends Controller
             ->get()
             ->first();
         $support_replaylist = SupportReplay::where('support_id', $support->id)->get();
-        // dd($support_replaylist);
         return view('admin.support.aindex', [
             'support_replaylist' => $support_replaylist,
             'support_user_id' => $support_user_id,
@@ -84,13 +83,9 @@ class HomeController extends Controller
         $support = Support::where('user_id', Auth::user()->id)
             ->get()
             ->first();
-        // dd($support);
         if ($support) {
             return 'You already submited an request, please visit my support. thank you';
         } else {
-            // return view('admin.support.create', [
-            //     'support_create' => 'on'
-            // ]);
             return view('admin.support.create', [
                 'support_create' => 'off',
             ]);

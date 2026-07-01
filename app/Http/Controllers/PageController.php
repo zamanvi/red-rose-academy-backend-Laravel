@@ -69,7 +69,7 @@ class PageController extends Controller
     }
     public function country_delete($id)
     {
-        // dd($id);
+
         $country = Country::find($id);
         $country->delete();
         $this->notification(Auth::user()->id, '"' . Auth::user()->name . '" delete Country "' . $country->name . '" successfully.!',  'country', '1');
@@ -126,7 +126,7 @@ class PageController extends Controller
     }
     public function division_delete($id)
     {
-        // dd($id);
+
         $division = Division::find($id);
         $division->delete();
         $this->notification(Auth::user()->id, '"' . Auth::user()->name . '" delete division "' . $division->name . '" successfully.!',  'division', '1');
@@ -183,7 +183,7 @@ class PageController extends Controller
     }
     public function city_delete($id)
     {
-        // dd($id);
+
         $city = City::find($id);
         $city->delete();
         $this->notification(Auth::user()->id, '"' . Auth::user()->name . '" delete division "' . $city->name . '" successfully.!',  'city', '1');
@@ -240,7 +240,7 @@ class PageController extends Controller
     }
     public function upazila_delete($id)
     {
-        // dd($id);
+
         $upazila = Upazila::find($id);
         $upazila->delete();
         $this->notification(Auth::user()->id, '"' . Auth::user()->name . '" delete upazila "' . $upazila->name . '" successfully.!',  'upazila', '1');
@@ -275,7 +275,7 @@ class PageController extends Controller
     }
     public function class_update(Request $request, $id)
     {
-        // dd($id);
+
         AllClass::where('id', $id)->update([
             'name' => $request->input('name'),
         ]);
