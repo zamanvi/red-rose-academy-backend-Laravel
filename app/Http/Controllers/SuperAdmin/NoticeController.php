@@ -3,13 +3,26 @@
 namespace App\Http\Controllers\SuperAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\ApiResponse;
 use App\Models\Notice;
 use App\Services\FcmService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 class NoticeController extends Controller
 {
+    /**
+     * API: return notices for grammar app
+     */
+    public function apiIndex()
+    {
+        $notices = Notice::where('app', 'grammar')
+            ->latest()
+            ->paginate(20);
+        return ApiResponse::respond(['notices' => $notices], true, 'All notices', Response::HTTP_OK);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -19,18 +32,12 @@ class NoticeController extends Controller
         return view('admin.notices.index', compact('notices'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $notices = Notice::paginate(20);
         return view('admin.notices.index', compact('notices'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request, FcmService $fcm)
     {
         $notice = new Notice();
@@ -45,9 +52,6 @@ class NoticeController extends Controller
         return redirect()->route('notices.index')->with('success', 'Notice created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         $notice = Notice::findOrFail($id);
@@ -55,9 +59,6 @@ class NoticeController extends Controller
         return view('admin.notices.show', compact('notice', 'notices'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
         $notice = Notice::findOrFail($id);
@@ -65,9 +66,6 @@ class NoticeController extends Controller
         return view('admin.notices.edit', compact('notice', 'notices'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id, FcmService $fcm)
     {
         $notice = Notice::findOrFail($id);
@@ -82,9 +80,6 @@ class NoticeController extends Controller
         return redirect()->route('notices.index')->with('success', 'Notice update successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $notice = Notice::findOrFail($id);
