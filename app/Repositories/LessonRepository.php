@@ -19,7 +19,7 @@ class LessonRepository  implements LessonRepositoryInterface
     }
     public function getAllById($id)
     {
-        return $this->lesson->where('chapter_id', $id)->paginate(10);
+        return $this->lesson->with('chapter')->where('chapter_id', $id)->paginate(10);
     }
 
     public function findById($id)

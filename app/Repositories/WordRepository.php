@@ -19,7 +19,7 @@ class WordRepository  implements WordRepositoryInterface
     }
     public function getAllById($id)
     {
-        return $this->word->where('lesson_id', $id)->paginate(30);
+        return $this->word->with('lesson')->where('lesson_id', $id)->paginate(30);
     }
 
     public function findById($id)

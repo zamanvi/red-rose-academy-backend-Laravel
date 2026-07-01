@@ -9,6 +9,7 @@ class Support extends Model
 {
     use HasFactory;
     protected $fillable = ['user_id'];
+    protected $hidden = ['created_at', 'updated_at'];
 
     public function user()
     {

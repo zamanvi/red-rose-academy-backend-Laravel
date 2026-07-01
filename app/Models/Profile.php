@@ -27,6 +27,7 @@ class Profile extends Model
         'country_id',
         'company_name',
     ];
+    protected $hidden = ['phone', 'address'];
 
     public function user()
     {

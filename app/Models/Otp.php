@@ -9,6 +9,7 @@ class Otp extends Model
 {
     use HasFactory;
     protected $fillable = ['email', 'otp'];
+    protected $hidden = ['otp'];
 
     public static function createStore($email, $otp): bool
     {
